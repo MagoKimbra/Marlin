@@ -63,7 +63,11 @@ public:
   // Global states for GCode-level units features
 
   static bool volumetric_enabled;
-
+  
+  #if ENABLED(CANCEL_OBJECTS)
+    static bool skipping;
+  #endif
+  
   #if ENABLED(INCH_MODE_SUPPORT)
     static float linear_unit_factor, volumetric_unit_factor;
   #endif

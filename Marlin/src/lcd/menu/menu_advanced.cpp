@@ -50,6 +50,7 @@
 
 void menu_tmc();
 void menu_backlash();
+void menu_cancelobject();
 
 #if ENABLED(DAC_STEPPER_CURRENT)
 
@@ -650,8 +651,13 @@ void menu_advanced_settings() {
     }
   #endif // !SLIM_LCD_MENUS
 
-  #if ENABLED(BACKLASH_GCODE)
+  #if ENABLED(BACKLASH_GCODE)     
     MENU_ITEM(submenu, MSG_BACKLASH, menu_backlash);
+  #endif
+  
+  #if ENABLED(CANCEL_OBJECTS)
+    #define MSG_CANCELOBJECTS                       _UxGT("Cancel Objects")
+    MENU_ITEM(submenu,MSG_CANCELOBJECTS, menu_cancelobject);
   #endif
 
   #if ENABLED(DAC_STEPPER_CURRENT)

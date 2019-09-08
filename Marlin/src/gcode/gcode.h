@@ -837,6 +837,14 @@ private:
     FORCE_INLINE static void M869() { I2CPEM.M869(); }
   #endif
 
+  #if ENABLED(CANCEL_OBJECTS)
+    static void O1();
+    static void O2();
+    static void O3();
+    static void O4();
+    static void O5();
+  #endif
+
   #if ENABLED(LIN_ADVANCE)
     static void M900();
   #endif

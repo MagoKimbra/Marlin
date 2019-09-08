@@ -2466,6 +2466,17 @@
   //#define HOST_PROMPT_SUPPORT
 #endif
 
+/**
+ * Cancel Objects
+ *
+ * Implement O-codes to allow parser to skip command blocks associated with specific objects
+ */
+//#define CANCEL_OBJECTS
+#ifdef CANCEL_OBJECTS
+   //things to go here will be the max number of objects and max string length?
+   #define MAXOBJECTS            20
+#endif
+
 //===========================================================================
 //====================== I2C Position Encoder Settings ======================
 //===========================================================================

@@ -189,8 +189,16 @@ void GcodeSuite::dwell(millis_t time) {
  */
 void GcodeSuite::process_parsed_command(const bool no_ok/*=false*/) {
   KEEPALIVE_STATE(IN_HANDLER);
-
-  // Handle a known G, M, or T
+    // Handle a known G, M, or T (or O)
+    //Using the O commmand here for simplicity, but these could be a specific M-code
+  #if ENABLED(CANCEL_OBJECTS)
+  //If skipping flag is set, skip all handling until next O-code
+  if (parser.skipping && parser.command_letter != 'O') {
+      KEEPALIVE_STATE(NOT_BUSY);
+      queue.ok_to_send();
+      return;
+  }
+  #endif
   switch (parser.command_letter) {
     case 'G': switch (parser.codenum) {
 
@@ -317,6 +325,7 @@ void GcodeSuite::process_parsed_command(const bool no_ok/*=false*/) {
     break;
 
     case 'M': switch (parser.codenum) {
+
       #if HAS_RESUME_CONTINUE
         case 0:                                                   // M0: Unconditional stop - Wait for user button press on LCD
         case 1: M0_M1(); break;                                   // M1: Conditional stop - Wait for user button press on LCD
@@ -800,6 +809,16 @@ void GcodeSuite::process_parsed_command(const bool no_ok/*=false*/) {
     break;
 
     case 'T': T(parser.codenum); break;                           // Tn: Tool Change
+
+  #if ENABLED(CANCEL_OBJECTS)
+    case 'O': switch (parser.codenum) {
+       case 1: O1(); break; //assign object
+       case 2: O2(); break; //start/end object block
+       case 3: O3(); break; //list objects
+       case 4: O4(); break; //clear all object list assignments
+       case 5: O5(); break; //cancel an object block
+    } break;
+  #endif
 
     default: parser.unknown_command_error();
   }

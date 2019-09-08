@@ -70,6 +70,10 @@ int GCodeParser::codenum;
   char *GCodeParser::command_args; // start of parameters
 #endif
 
+#if ENABLED(CANCEL_OBJECTS)
+   bool GCodeParser::skipping;
+#endif
+
 // Create a global instance of the GCode parser singleton
 GCodeParser parser;
 
@@ -138,7 +142,9 @@ void GCodeParser::parse(char *p) {
   switch (letter) {
 
     case 'G': case 'M': case 'T':
-
+    #if ENABLED(CANCEL_OBJECTS)
+      case 'O':
+    #endif
       // Skip spaces to get the numeric part
       while (*p == ' ') p++;
 
@@ -231,7 +237,14 @@ void GCodeParser::parse(char *p) {
     case 23: case 28: case 30: case 117: case 118: case 928: string_arg = p; return;
     default: break;
   }
-
+/*
+  #if ENABLED(CANCEL_OBJECTS)
+  if (letter == 'O') switch (codenum) {
+    case 1:  string_arg = p; return;
+    default: break;
+  }
+  #endif
+*/
   #if ENABLED(DEBUG_GCODE_PARSER)
     const bool debug = codenum == 800;
   #endif
