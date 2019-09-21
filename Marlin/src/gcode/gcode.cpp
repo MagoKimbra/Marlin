@@ -189,16 +189,17 @@ void GcodeSuite::dwell(millis_t time) {
  */
 void GcodeSuite::process_parsed_command(const bool no_ok/*=false*/) {
   KEEPALIVE_STATE(IN_HANDLER);
-    // Handle a known G, M, or T (or O)
-    //Using the O commmand here for simplicity, but these could be a specific M-code
+  // Handle a known G, M, or T (or O)
+  //Using the O commmand here for simplicity, but these could be a specific M-code
   #if ENABLED(CANCEL_OBJECTS)
   //If skipping flag is set, skip all handling until next O-code
-  if (parser.skipping && parser.command_letter != 'O') {
+    if (parser.skipping && parser.command_letter != 'O') {
       KEEPALIVE_STATE(NOT_BUSY);
       queue.ok_to_send();
       return;
-  }
+    }
   #endif
+
   switch (parser.command_letter) {
     case 'G': switch (parser.codenum) {
 

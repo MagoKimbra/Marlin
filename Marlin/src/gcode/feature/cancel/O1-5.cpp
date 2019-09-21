@@ -28,51 +28,44 @@
 #include "../../../feature/cancelobject.h"
 
 /**
- * O1: Add an object to a list of cancelable objects, with index and string name
+ * O1: Add an object to a list of cancelable objects, by index
  */
 void GcodeSuite::O1() {
-    if (parser.seen('I')) {
-        uint16_t obj = parser.value_int();
-        add_new_object(obj);
-    }
- 
+  uint16_t obj = parser.intval('I');
+  add_new_object(obj);
 }
+
 /**
  * O2: Set/unset current printing object index
  */
 void GcodeSuite::O2() {
-//Is it a valid index?
-//If already cancelled, set the skipping flag
-    uint16_t obj = parser.intval('I');
-    uint16_t setflag = parser.intval('S');
+  uint16_t obj = parser.intval('I');
+  uint16_t setflag = parser.intval('S');
 
-    if (setflag >= 1) set_active_object(obj);
-    if (setflag == 0) reset_active_object(obj);
-
+  if (setflag >= 1) set_active_object(obj);
+  if (setflag == 0) reset_active_object(obj);
 }
+
 /**
  * O3: List assigned object indexes
  */
 void GcodeSuite::O3() {
-    list_objects();
-    parser.skipping=false;
+  list_objects();
 }
+
 /**
  * O4: Reset object list
  */
 void GcodeSuite::O4() {
-    clear_objects();
+  clear_objects();
 }
+
 /**
  * O5: Cancel object, by index
  */
 void GcodeSuite::O5() {
-    uint16_t obj = parser.intval('I');
-    cancel_object(obj);
-    parser.skipping=true;
-
+  uint16_t obj = parser.intval('I');
+  cancel_object(obj);
 }
-
-
 
 #endif // CANCEL_OBJECTS

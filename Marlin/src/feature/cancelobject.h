@@ -21,16 +21,14 @@
  */
 #pragma once
 
-//Reserve index 0 for non-objects?
-
 struct gcodeobject{
-   bool cancelled, active, assigned;                         
-   //std ::string objname;                     
+   bool cancelled, active, assigned;                                             
   };
 
 void add_new_object(uint16_t obj);
 void set_active_object(uint16_t obj);
 void reset_active_object(uint16_t obj);
 void cancel_object(uint16_t obj);
+bool get_object(uint16_t obj);
 void list_objects();
 void clear_objects();

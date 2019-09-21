@@ -21,7 +21,7 @@
  */
 
 //
-// Backlash Menu
+// Cancel Object Menu
 //
 
 #include "../../inc/MarlinConfigPre.h"
@@ -31,18 +31,12 @@
 #include "menu.h"
 
 #include "../../feature/cancelobject.h"
-//Just hardcoding these in for now, need to get the list from the feature and only add those that are active.
+
 void menu_cancelobject() {
+  
   START_MENU();
   MENU_BACK(MSG_MAIN);
-  PGM_P msg0 = PSTR("Object 0");
-  MENU_ITEM_P(gcode, msg0, PSTR("O5 I0"));
-  PGM_P msg1 = PSTR("Object 1");
-  MENU_ITEM_P(gcode, msg1, PSTR("O5 I1"));
-  PGM_P msg2 = PSTR("Object 2");
-  MENU_ITEM_P(gcode, msg2, PSTR("O5 I2"));
-  PGM_P msg3 = PSTR("Object 3");
-  MENU_ITEM_P(gcode, msg3, PSTR("O5 I3"));
+
   END_MENU();
 }
 
