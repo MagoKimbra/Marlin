@@ -32,9 +32,17 @@
 
 #include "../../feature/cancelobject.h"
 
+inline void _lcd_cancel_cb() { 
+  if (lcd_cancel > -1) {
+     cancel_object(uint16_t(lcd_cancel));
+     lcd_cancel = -1;
+  }
+}
+
 void menu_cancelobject() {
   
   START_MENU();
+  MENU_MULTIPLIER_ITEM_EDIT_CALLBACK(int3, MSG_OBJECT_CANCEL, &lcd_cancel, -1, MAXOBJECTS, _lcd_cancel_cb);
   MENU_BACK(MSG_MAIN);
 
   END_MENU();

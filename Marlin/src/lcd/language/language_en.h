@@ -175,6 +175,9 @@
 #ifndef MSG_PREHEAT_CUSTOM
   #define MSG_PREHEAT_CUSTOM                  _UxGT("Preheat Custom")
 #endif
+#ifndef MSG_OBJECT_CANCEL
+  #define MSG_OBJECT_CANCEL                  _UxGT("Cancel Object")
+#endif
 #ifndef MSG_COOLDOWN
   #define MSG_COOLDOWN                        _UxGT("Cooldown")
 #endif

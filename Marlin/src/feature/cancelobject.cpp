@@ -27,7 +27,7 @@
    #include "../lcd/ultralcd.h"
 
    static gcodeobject objectlist[MAXOBJECTS];
-
+   int16_t lcd_cancel = -1;
    //Just for now, lets set active object to MAXOBJECTS+1
    static uint8_t null_object=MAXOBJECTS+1;
    static uint8_t active_object = null_object;
@@ -58,7 +58,7 @@
    }
 
    void cancel_object(uint16_t obj) {
-     objectlist[obj].cancelled = true;
+     if (!objectlist[obj].cancelled) objectlist[obj].cancelled = true;
      if (obj == active_object) parser.skipping = true;
    }
 

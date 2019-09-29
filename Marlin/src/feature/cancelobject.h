@@ -24,6 +24,7 @@
 struct gcodeobject{
    bool cancelled, active, assigned;                                             
   };
+extern int16_t lcd_cancel;
 
 void add_new_object(uint16_t obj);
 void set_active_object(uint16_t obj);
